@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <%= stylesheet_link_tag 'application'%> 
+    </head>
+    <body>
+        <main>
+
+            <div class = "wrapper">
+              <%= form_tag url_for(action: 'edit'), method: "patch" do %>
+                  <%= label_tag 'name' %>
+                  <%= text_area_tag 'name'%>
+                  <br /> <br />
+                  <%= label_tag 'zip_code' %>
+                  <%= text_area_tag 'zip_code'%>
+                  <br /> <br />
+                  <%= submit_tag "Update City" %>
+              <% end %>
+            </div>
+
+        </main>
+    </body>
+</html>

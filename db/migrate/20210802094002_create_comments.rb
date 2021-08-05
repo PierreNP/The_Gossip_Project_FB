@@ -1,0 +1,12 @@
+class CreateComments < ActiveRecord::Migration[5.2]
+  def change
+    create_table :comments do |t|
+      t.text :content
+      t.belongs_to :gossip, index: true
+      t.belongs_to :user, index: true
+      # t.belongs_to :comment, index: true # à mettre dans une prochaine migration
+
+      t.timestamps
+    end
+  end
+end

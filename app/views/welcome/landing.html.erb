@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <%= stylesheet_link_tag "application" %> 
+  </head>
+
+  <body>
+      <%= yield %>
+
+    <h1>Bienvenue, <%= link_to @user %></h1>
+    <p>Ici c'est notre super site de potins, il est chouette, non ?</p>
+
+  </body>
+</html>
+
+

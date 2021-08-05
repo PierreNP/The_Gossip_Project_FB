@@ -1,0 +1,64 @@
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <%# <link rel="stylesheet" href="app/assets/stylesheets/application.css"> %>
+        <%= stylesheet_link_tag "application" %> 
+    </head>
+    <body>
+        <div class = "wrapper gossip-wrapper">
+          <h2>Gossip n°<%=@num%> </h2>
+          <h3><%= Gossip.find(@num).title%></h3>
+          <h4><%= Gossip.find(@num).content%></h3>
+          <p>By <%= Gossip.find(@num).user.first_name %>, ajouté le <%=Gossip.find(@num).created_at.to_s[0..9]%></p>
+          <%= link_to "Edite moi tout ça !", edit_gossip_path(@num)%>
+        </div>
+
+        <% flash.each do |type, msg| %>
+          <div>
+            <%= msg %>
+          </div>
+        <% end %>
+
+        <%= link_to "Dévoiler l'auteur", user_path(Gossip.find(@num).user.id)%>
+        <%= link_to "Retrouve tous les gossips de la ville !!!", city_gossip_index_path(Gossip.find(@num).user.city_id)%>
+        
+        <% if current_user.id == @gossip.user_id %>
+          <%= form_with model:@gossip, url:gossip_path, method: :delete, local:true do |form| %>
+            <%= form.submit "Trash !" %>
+          <%end%>
+        <%end%>
+        
+        <div class = "wrapper">
+          <h3>Mieux que les potins : les commentaires de potins : ça se lâââââche... !</h3>
+
+          <%= form_with model:@new_comment, url:gossip_comments_path(@num), method: :post, local:true do |form| %>
+                <div class = "form-group">
+                    <%= label_tag 'Ajoute ton commentaire qui va inverser le sens de rotation de la terre (pas moins) !' %>
+                    <%= form.text_field :content, class:'form-control'%>
+                </div>
+                <%= form.submit "Poste ton commmentaire. Yallah !" %>
+            <%end%>
+
+          <ul class="ol-cards">
+          <% @all_comments.sort.each_with_index do |comment|%>                    
+            <div class="card" style="width: 20rem;">
+              <%# <img class="card-img-top" src="..." alt="Card image cap"> %>
+              <div class="card-body">
+                <p class="card-text content"><%= comment.content%></p>
+            
+
+                <div class="auteur">by <%= User.find(comment.user_id).first_name %></div>
+                <%= link_to "Edite moi tout ça !", edit_comment_path(comment.id)%>
+              </div>
+            </div>
+              <% end %>
+          </ul>
+          <p>Tu as un gossip et ne l'as toujours pas envoyé sur la plateforme ? Non mais allo quoi !</p>
+          <small>Sors ton Minitel et compose le 3615 Gossip (10Fr l'appel + 3Fr la minute)</small>
+        </div>
+        
+    </body>
+</html>

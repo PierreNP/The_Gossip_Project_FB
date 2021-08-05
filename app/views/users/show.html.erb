@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <%# <link rel="stylesheet" href="app/assets/stylesheets/application.css"> %>
+        <%= stylesheet_link_tag "application" %> 
+    </head>
+    <body>
+        <div class = "wrapper gossip-wrapper">
+            <h2>"<%=User.find(@num).first_name%>" </h2>
+            <h5><%= "#{User.find(@num).first_name} #{User.find(@num).last_name} (##{User.find(@num).id}) :"%> </h5>
+            <p><%= User.find(@num).description%></p>
+            <p><%= "#{User.find(@num).email}, #{City.find(User.find(@num).city_id).name}"%></p>
+        </div>
+
+        <%= link_to "Retrouve tous les gossips de la ville !!!", city_gossip_index_path(User.find(@num).city_id)%>
+
+    </body>
+</html>

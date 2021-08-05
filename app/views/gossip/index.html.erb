@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <%= stylesheet_link_tag 'application'%> 
+    </head>
+    <body>
+        <main>
+        <% if @gossip %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="alert-heading">Bravo champion !</h4>
+                <p class="mb-0">Votre gossip a bien été enregistré, pour le bien de l'humanité !</p>
+                <hr>
+            </div>
+        <% end %>
+        <div class = "wrapper">
+
+
+            <h1>Bienvenue sur 3615 Gossip <%if @selected_city_id != nil %>  <%= " - #{City.find(@selected_city_id).name} edition" %> <% end %> </h1>
+            <h3>Les meilleurs gossips de ta région se trouvent ici !</h3>
+            <ul class="ol-cards">
+            <% @all_gossips.sort.each_with_index do |gossip|%>                    
+                <a href= <%= gossip_path(gossip.id) %>> 
+                    <div class="card" style="width: 20rem;">
+                        <%# <img class="card-img-top" src="..." alt="Card image cap"> %>
+                    <div class="card-body">
+                            <h5 class="card-title"><li><%= gossip.title%></h5>
+                            <p class="card-text content"><%= gossip.content%></p>
+                            <div class="auteur">by <%= gossip.user.first_name %></div>
+                        </div>
+                    </div> 
+                </a>
+                <% end %>
+            </ul>
+            <p>Tu as un gossip et ne l'as toujours pas envoyé sur la plateforme ? Non mais allo quoi !</p>
+            <small>Sors ton Minitel et compose le 3615 Gossip (10Fr l'appel + 3Fr la minute)</small>
+        </div>
+        </main>
+    </body>
+</html>

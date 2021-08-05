@@ -1,0 +1,2 @@
+module GossipControllerHelper
+end
